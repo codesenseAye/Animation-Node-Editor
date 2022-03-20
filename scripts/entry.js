@@ -1,3 +1,5 @@
+// The entry point for the app
+
 import react from "react"
 import reactDOM from "react-dom"
 
@@ -7,7 +9,7 @@ class Topbar extends react.Component {
     }
 
     render() {
-        return (null)
+        return (<div className="topBar"/>)
     }
 }
 
@@ -27,7 +29,10 @@ class Body extends react.Component {
     }
 
     render() {
-        return (null)
+        return [
+            <Topbar/>,
+            <Contents/>
+        ]
     }
 }
 

@@ -1,0 +1,1 @@
+// Handles creating the topbar and its visual functionalities (menu drawer, windows controls, app icon, etc)

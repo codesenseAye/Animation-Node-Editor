@@ -1,0 +1,1 @@
+// Creates a file that when parented under the screengui it was created for will connect events and do animations based on the nodes created in the app

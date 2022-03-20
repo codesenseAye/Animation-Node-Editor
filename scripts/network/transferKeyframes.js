@@ -1,0 +1,1 @@
+// Handles transmitting animation keyframe to the plugin in a simple format each time the timeline is played

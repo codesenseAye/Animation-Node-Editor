@@ -1,0 +1,2 @@
+-- Handles the interface of the main widget (connecting and displaying an established connection)
+-- Handles creating the floating animation widget and removes it when the server says

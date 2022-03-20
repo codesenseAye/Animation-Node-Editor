@@ -1,16 +1,30 @@
 const { app, BrowserWindow } = require('electron')
 
+const url = require('url') 
+const path = require('path')  
+
 const createWindow = () => {
     const win = new BrowserWindow({
       width: 800,
       height: 600,
-      frame: false
+
+      frame: false,
+
+      webPreferences: {
+        nodeIntegration: true,
+        contextIsolation: false,
+        enableRemoteModule: true,
+      }
     })
-  
-    win.loadFile('index.html')
+    
+    win.loadURL(url.format ({ 
+      pathname: path.join(__dirname, 'index.html'), 
+      protocol: 'file:', 
+      slashes: true 
+    })) 
   }
 
-  app.whenReady().then(() => {
+  app.on("ready", () => {
     createWindow()
   })
 

@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-  </head>
+	<script src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
+	<script src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
+	<script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
 
-  <body id="appBody">
-    <script text="text/javascript" src="./scripts/entry.js"></script>
-  </body>
+	<link href="./stylesheets/hud.css" media="screen, projection" rel="stylesheet" type="text/css">		
+	<link href="./stylesheets/timeline.css" media="screen, projection" rel="stylesheet" type="text/css">		
+	<link href="./stylesheets/contextMenu.css" media="screen, projection" rel="stylesheet" type="text/css">		
+	<link href="./stylesheets/exportMenu.css" media="screen, projection" rel="stylesheet" type="text/css">		
+	<link href="./stylesheets/topbar.css" media="screen, projection" rel="stylesheet" type="text/css">		
+	<link href="./stylesheets/tabbar.css" media="screen, projection" rel="stylesheet" type="text/css">		
+	<link href="./stylesheets/node.css" media="screen, projection" rel="stylesheet" type="text/css">		
+
+	<head>
+		<meta charset="UTF-8">
+		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+		<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdnjs.cloudflare.com *.cloudflare.com"> -->
+		<!-- <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
+	</head>
+
+	<body style="background-color: grey;">
+		<div id="appBody">
+			<script src="./scripts/entry.js" type='text/babel'></script>
+		</div>
+	</body>
 </html>

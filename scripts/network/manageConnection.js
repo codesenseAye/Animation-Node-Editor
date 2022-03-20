@@ -1,0 +1,1 @@
+// Manages the connection with the node app and waits for an establishment request to display an established connection 

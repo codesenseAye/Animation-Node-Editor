@@ -1,0 +1,2 @@
+// Handles listening to right clicks on the document and creating a context menu with specific actions relevant to where the user clicked
+// Handles keycombinations (paste, cut, copy, etc) and triggers other module functions

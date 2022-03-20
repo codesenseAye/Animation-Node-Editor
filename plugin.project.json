@@ -1,0 +1,21 @@
+{
+    "name": "Animation Node Editor",
+
+    "tree": {
+        "$className": "DataModel",
+
+        "ServerScriptService": {
+            "$className": "ServerScriptService",
+            "Animation Editor": {
+                "$className": "Folder",
+                "AnimateProcess": {
+                    "$path": "./plugin/animateProcessWidget"
+                },
+
+                "Interface": {
+                    "$path": "./plugin/interface.server.lua"
+                }
+            }
+        }
+    }
+}
