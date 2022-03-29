@@ -1,0 +1,246 @@
+@import 'variables';
+
+$fieldPadding: 10px;
+
+@mixin node {
+    position: absolute;
+    min-width: 100px;  
+    
+    gap: 5px;
+    display: grid;
+    
+    flex-basis: 1;
+    flex-grow:auto;
+
+    height: min-content;
+    width: min-content;
+
+    border-radius: 10px;
+    border-style: solid;
+
+    border-width: 1px;
+    padding: $fieldPadding;
+
+    background-color: $secondarycolor
+}
+
+div .nodeBack {
+    @include node;
+    border-color: black;
+}
+    
+div [isselected="1"] {
+    @include node;
+    border-color: #93bbc9
+}
+
+@mixin inputTitle {
+    color: white;
+    font-size:small;
+}
+
+.inputTitle {
+    @include inputTitle
+}
+
+.inputTitle[inline="true"] {
+    @include inputTitle;
+    position: relative;
+    width: max-content;
+
+    left: 20px;
+    top: -12.5px
+}
+
+@mixin modifyPathProperty {
+    padding: 4px;
+
+    width: 25px;
+    height: 25px;
+
+    border-style: solid;
+    border-color: black;
+    border-radius: 5px;
+
+    border-width: 1px;
+    color: black;
+
+    transition-duration: 150ms;
+}
+
+@mixin modifyPathPropertyHover {
+    background-color: darkgrey;
+    transition-duration: 150ms;
+    transform: scale(0.9);
+}
+
+@mixin modifyPathPropertyActive {
+    background-color: grey;
+    transition-duration: 150ms;
+    transform: scale(0.8);
+}
+
+
+.addPathProperty {
+    @include modifyPathProperty
+}
+
+.addPathProperty:hover {
+    @include modifyPathPropertyHover
+}
+
+
+.removePathProperty:active {
+    @include modifyPathPropertyActive
+}
+
+.removePathProperty {
+    @include modifyPathProperty;
+    font-size: xx-small;
+
+    width: 20px;
+    height: 20px;
+
+    position: relative;
+    right: 0px
+}
+
+.removePathProperty:hover {
+    @include modifyPathPropertyHover
+}
+
+.removePathProperty:active {
+    @include modifyPathPropertyActive
+}
+
+.pathProperty {
+    background-color: transparent;
+    width: max-content;
+    overflow: visible;
+
+    display: grid;
+
+    justify-content: center;
+    align-items: center;
+    
+    align-content: center;
+    justify-items: center;
+}
+
+.connectionInProperty {
+    position: absolute;
+    border-style:ridge;
+
+    border-color: black;
+    border-radius: 7.5px;
+
+    margin-top: 2.25px;
+    margin-left: -11px;
+
+    height: 15px;
+    width: 15px;
+}
+
+.propertySelect {
+    width: max-content;
+    border-radius: 3px;
+    height: 18.5px;
+    margin-right: 6px;
+    outline: none;
+}
+
+.propertySelectOption {
+    color: black;
+}
+
+@mixin inputField {
+    border-radius: 5px;
+    border-style: solid;
+
+    grid-row: 2;
+    margin-left: -4px;
+
+    border-width: 1px;
+    outline:none;
+
+    width: calc(100% - 7.5px);
+    height: 20px
+}
+
+.inputField {
+    @include inputField
+
+}
+
+.inputField[inline="true"] {
+    @include inputField;
+    //width: calc(100% - 130px)
+}
+
+.field {
+    @include inputField;
+    width: 100%;
+    height: 100%
+}
+
+
+.progressTimeInput {
+    border-width: 2px;
+    border-style: solid;
+
+    grid-row: 2;
+    border-color: black;
+
+    border-radius: 5px;
+    position: relative;
+
+    margin-left: 5px;
+
+    width: 20px;
+    height: 20px;
+}
+
+.progressTimeInput:first-of-type {
+    margin-left: 2px !important;
+}
+
+@keyframes progressBarLoopTest {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 0%;
+    }
+}
+
+@mixin valuePropertyProgressBar {
+    position: relative;
+    top: 2px;
+    grid-row: 3;
+
+    height: 2px;
+    width: 100%;
+}
+
+.valuePropertyProgressBarHolder {
+    @include valuePropertyProgressBar
+}
+
+.valuePropertyProgressBar {
+    @include valuePropertyProgressBar;
+    
+    border-radius: 3px;
+    top: 0px;
+
+    animation-name: progressBarLoopTest !important;
+    animation: alternate;
+
+    animation-iteration-count: infinite;
+    animation-play-state: running;
+
+    animation-duration: 1s;
+
+    left: -100%;
+    background-image: linear-gradient(90deg, blue 50%, red 50%, red 100%);
+}

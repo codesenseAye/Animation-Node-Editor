@@ -1,0 +1,67 @@
+@import 'variables';
+
+@mixin menu {
+    position: absolute;
+    z-index: 100;
+
+    display: grid;
+    gap: 10px;
+
+    border-radius: 10px;
+    border-color: black;
+
+    border-width: 2px;
+    border-style: solid;
+
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+
+    background-color: $secondarycolor
+}
+
+.contextMenu {
+    @include menu
+}
+
+@keyframes floatInContext {
+    0% {
+        margin-top: 100%;
+        margin-left: 100%;
+
+        transform: scale(3)
+    }
+    100% {
+        margin-top: 0%;
+        margin-left: 0%;
+
+        transform: scale(1)
+    }
+  }
+  
+
+.contextMenu[inview="1"] {
+    @include menu;
+    animation-name: floatInContext; 
+    animation-duration: 500ms;
+}
+
+.contextItem {
+    color: rgb(200,200,200);
+    z-index: 101;
+    background-color: $secondarycolor
+}
+
+.contextShortcut {
+    position: relative;
+
+    margin-left: 75px;
+    margin-top: -21px
+}
+
+.contextMenuSeparator {
+    width: 100%;
+    height: 1px;
+
+    border-radius: 2px;
+    background-color: black
+}

@@ -1,5 +1,25 @@
 <!DOCTYPE html>
 <html>
+	<div id="cover" style="position:absolute;z-index: 1000;top: 0px;left:0px;background-color: rgb(100,100,100);height:100%;width:100%">
+		<svg id="introSVG" width="100%" height="100%" transform="scale(1)">
+			<rect height="50%" width="50%" x="25%" y="25%" fill="white" stroke="black" stroke-width="1%">
+			</rect>
+			
+			<text x="32.5%" y="50%" height="50%" font-family="Helvetica" font-size="25px" textLength="35%" width="50%" fill="black">
+				ANIMATION NODE EDITOR
+			</text>
+			
+			<svg width="100%" height="100%" viewBox="0 0 100 100"  preserveAspectRatio="none">
+				<path id="path1" d="" stroke="black" fill="transparent" ></path>
+				<path id="path2" d="" stroke="black" fill="transparent"></path>
+				<path id="path3" d="" stroke="black" fill="transparent"></path>
+				<path id="path4" d="" stroke="black" fill="transparent"></path>
+			</svg>
+		</svg>
+	</div>
+
+	<script src="./scripts/introAnimation.js" type='text/babel'></script>
+
 	<script src="https://unpkg.com/react@16.5.2/umd/react.production.min.js"></script>
 	<script src="https://unpkg.com/react-dom@16.5.2/umd/react-dom.production.min.js"></script>
 	<script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
@@ -10,8 +30,37 @@
 	<link href="./stylesheets/exportMenu.css" media="screen, projection" rel="stylesheet" type="text/css">		
 	<link href="./stylesheets/topbar.css" media="screen, projection" rel="stylesheet" type="text/css">		
 	<link href="./stylesheets/tabbar.css" media="screen, projection" rel="stylesheet" type="text/css">		
-	<link href="./stylesheets/node.css" media="screen, projection" rel="stylesheet" type="text/css">		
+	<link href="./stylesheets/node.css" media="screen, projection" rel="stylesheet" type="text/css">	
 
+	<!-- <script src="./scripts/contextualMenu.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/topBar.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/timeline.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/nodes/database.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/nodes/node/interface.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/nodes/node/types/change.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/nodes/node/types/variable.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/nodes/node/types/event/globalEvent.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/nodes/node/types/event/objectEvent.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/nodes/lines.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/nodes/nodeTabs.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/network/manageConnection.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/network/transferKeyframes.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/network/transferKeyframes.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/fileManaging/loadNodes.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/fileManaging/saveNodes.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/fileManaging/projectManage.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/fileManaging/export/asCode.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/fileManaging/export/asRbxmx.js" type='text/babel'></script>-->
+	<!-- <script src="./scripts/fileManaging/export/export.js" type='text/babel'></script>-->
+
+	<script type="text/babel">
+		var react = require("react")
+		var reactDOM = require("react-dom")
+		
+		var database = require("./scripts/nodes/database") // var is contextual to the function its called in (or in this case the entire app) 
+		// and not closures/block ex {}
+	</script>
+	
 	<head>
 		<meta charset="UTF-8">
 		<!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
@@ -19,7 +68,7 @@
 		<!-- <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
 	</head>
 
-	<body style="background-color: grey;">
+	<body style="background-color: grey; overflow:hidden">
 		<div id="appBody">
 			<script src="./scripts/entry.js" type='text/babel'></script>
 		</div>
