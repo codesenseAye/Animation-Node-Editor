@@ -5,7 +5,9 @@ var openedFile = []
 var openFiles = []
 
 let Tabs = () => {
-
+    return (
+        react.createElement("div", {className: "tabsBar"})
+    )
 }
 
 
@@ -15,3 +17,5 @@ let Tab = () => {
 
 module.exports.openedFile = openedFile
 module.exports.openFiles = openFiles
+
+module.exports.TabsBar = Tabs

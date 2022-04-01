@@ -6,7 +6,9 @@ const win = remote.getCurrentWindow();
 
 const lodash = require("lodash")
 const RXJS = require("rxjs");
+
 const popper = require("@popperjs/core")
+const http = require("http")
 
 const rightDown = new RXJS.Subject()
 const leftDown = new RXJS.Subject()
@@ -25,7 +27,11 @@ var mouseY = 0
 
 const { openedFile , openFiles} = require("./scripts/nodes/nodeTabs.js")
 const { ContextMenu } = require("./scripts/contextualMenu.js")
+
 const { Nodes } = require("./scripts/nodes/node/interface.js")
+const { ConnectionBar } = require("./scripts/network/manageConnection.js")
+
+const { TabsBar } = require("./scripts/nodes/nodeTabs.js")
 
 window.addEventListener("keydown", (event) => {
     keysDown[event.key] = true
@@ -68,7 +74,11 @@ class Body extends react.Component {
 
     render() {
         return [
-            <Topbar/>,
+            <Topbar>
+            </Topbar>,
+            <ConnectionBar/>,
+            <TabsBar/>,
+            
             <Contents/>,
             <ContextMenu/>
         ]

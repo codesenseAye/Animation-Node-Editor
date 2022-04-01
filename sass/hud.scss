@@ -40,3 +40,45 @@ div {
   background-size: 25px 25px;
   background-color: transparent
 }
+
+.connectionBarLabel {
+  position: absolute;
+  border-style: none;
+
+  background-color: transparent;
+  color: white;
+
+  height: 20px;
+  width: 200px;
+  -webkit-app-region: no-drag;
+
+  top: 2.5px;
+  left: calc(50% - 100px)
+}
+
+.connectionBarLabel:hover {
+  color: white * 0.8;
+  transform: scale(0.9);
+  
+  transition-duration: 50ms;
+}
+
+.connectionBarLabel:active {
+  color: white * 0.6;
+  transform: scale(0.8);
+
+  transition-duration: 50ms;
+}
+
+.tabsBar {
+  position: absolute;
+
+  z-index: 100;
+  width: 100%;
+  height: 20px;
+
+  top: 25px;
+  left: 0px;
+
+  background-color: $primarycolor * 0.6
+}

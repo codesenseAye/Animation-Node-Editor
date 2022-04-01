@@ -94,7 +94,6 @@ let Node = (i, node) => {
         let same = nodeOver.id == node.id
 
         if (same) {
-            console.log("dasda")
             processDrag(i, node)
         }
 

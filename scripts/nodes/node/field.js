@@ -1,5 +1,6 @@
 // Input field for node object
 // Has in/out connection 
+let { SearchObject } = require("../database.js")
 
 let valueProgressBar = () => {
     return react.createElement("div", {className: "valuePropertyProgressBarHolder"},
@@ -12,6 +13,14 @@ let valueProgressFields = (fieldName) => {
         react.createElement("input", {key: Math.random(), type:"number", className: "progressTimeInput"}),
         react.createElement("input", {key: Math.random(), type:"number", className: "progressTimeInput"})
     ] : []
+}
+
+let startConnectionLine = (fieldName) => {
+    return (e) => {
+        e.stopPropagation()
+
+
+    }
 }
 
 let getPropertySelects = (objectClass) => {
@@ -31,12 +40,62 @@ let getPropertySelects = (objectClass) => {
 }
 
 let PathPropertyInput = (fieldName) => {
-    return react.createElement("div", {key: Math.random(), inline: fieldName == "VALUE" ? "true" : "false", className: "inputField"},
-        (fieldName == "VALUE" ? react.createElement("button", {key: Math.random(), className: "connectionInProperty"}) : null),
+    let [searchObjects, setSearchObjects] = react.useState([])
+    let [value, setValue] = react.useState("")
+    
+    let change = (e) => {
+        let objects = []
+        
+        e.stopPropagation()
+        setValue(e.target.value)
+
+        // fix this then do the selection text
+        // make pressing text load it as a value
+        // make input focusing not so bad
+
+        SearchObject(e.target.value, (obj) => {
+            objects.push(obj)
+        })
+
+        console.log(objects)
+        setSearchObjects(objects)
+    }
+
+    let makeSelection = (obj) => {
+        return react.createElement("div", {className: "selectionObject"}, obj.path)
+    }
+    
+    let id = Math.random()
+
+    let focus = () => {
+
+        if (!input) {
+            return
+        }
+
+        input.focus()
+    }
+
+    return react.createElement("div", {key: id, inline: fieldName == "VALUE" ? "true" : "false", className: "inputField"},
+        (fieldName == "VALUE" ? react.createElement("button", {
+            key: Math.random(), className: "connectionInProperty", onMouseDown: startConnectionLine(fieldName)
+        }) : null),
         
         react.createElement("input", {
-            className: "field"
+            className: "field",
+            id: id,
+
+            onMouseDown: (e) => e.stopPropagation(),
+            onChange: change,
+
+            onMouseOver: focus,
+
+            value: value,
         }),
+
+        searchObjects.map((obj) => {
+            makeSelection(obj)
+        })
     )
 }
 

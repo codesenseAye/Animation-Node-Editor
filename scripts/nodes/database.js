@@ -1,36 +1,70 @@
 // Handles the node database of current tabs, nodes in those tabs, connections of those nodes, properties on those nodes, paths on those nodes, 
 // Handles a seperate database for the animation keyframe timeline it generates from the node database
 
-const { stat } = require('original-fs');
-
 let sqlite3 = require('sqlite3').verbose()
+let { open } = require("sqlite")
 
-var nodes = new sqlite3.Database('./nodes');
-var properties = new sqlite3.Database('./nodes');
+var nodes = open({filename: './nodes', driver: sqlite3.Database})
+var properties = open({filename: './properties', driver: sqlite3.Database})
 
-//nodes.serialize(function() {
-  nodes.each("SELECT * FROM lorem", (err, column) => {
-    //console.log(err, column)
-  });
-  /*var stmt = db.prepare("INSERT INTO lorem VALUES (?)");
+var properties = open({filename: './properties', driver: sqlite3.Database})
+var events = open({filename: "./events", driver: sqlite3.Database})
 
-  for (var i = 0; i < 10; i++) {
-      stmt.run("Ipsum " + i);
-  }
-  stmt.finalize();
+var datatypes = open({filename: "./datatypes", driver: sqlite3.Database})
+var guiObjects = open({filename: "./guiObjects", driver: sqlite3.Database})
 
-  db.each("SELECT rowid AS id, info FROM lorem", function(err, row) {
-      //console.log(row.id + ": " + row.info);
-  });*/
-//});
+let databaseError = (ignore) => {
+	return (e) => {
+		if (ignore) {
+			return
+		}
 
-//nodes.serialize(function() {
-  //nodes.run("SELECT INSERT INTO * FROM NODES")
+		if (!e) {
+			return
+		}
 
-  //nodes.run("SELECT * FROM nodes", function(err, node) {
-  //  console.log(err, node)
-  //})
-//})
+		console.log(e)
+	}
+}
 
-nodes.close();
-module.exports.Database = nodes
+let searchProperty = async (searchKeywords) => {
+
+}
+
+let searchObject = async (pathSoFar, gotCallback) => {
+	let db = await guiObjects
+
+	return await db.each(`SELECT * FROM objects WHERE path LIKE \'%${pathSoFar}%\' LIMIT 5`, (e, row) => {
+		if (e) {
+			console.log(e)
+			return
+		}
+
+		gotCallback(row)
+	})
+}
+
+let searchEvent = async (searchKeywords) => {
+
+}
+
+let setObjects = async (objects) => {
+	let db = await guiObjects
+	db.run("CREATE TABLE objects (className varchar(255), path varchar(255));", databaseError()).catch(databaseError(true))
+
+	db.run(
+		"DELETE FROM objects;"
+	).catch(databaseError())
+
+	for (let i = 0; i < objects.length; i++) {
+		let obj = objects[i]
+
+		db.run(`INSERT INTO objects (className, path) VALUES (\'${obj.className}\', \'${obj.path}\');`).catch(databaseError())
+	}
+}
+
+module.exports.SearchProperty = searchProperty
+module.exports.SearchObject = searchObject
+
+module.exports.SearchEvent = searchEvent
+module.exports.SetObjects = setObjects
