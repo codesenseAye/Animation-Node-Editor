@@ -4,15 +4,20 @@
 var openedFile = []
 var openFiles = []
 
-let Tabs = () => {
+let Tab = () => {
     return (
-        react.createElement("div", {className: "tabsBar"})
+        react.createElement("div", {style: {
+            width: "50px",
+            height: "25px",
+            backgroundColor: "white"
+        }})
     )
 }
 
-
-let Tab = () => {
-
+let Tabs = () => {
+    return (
+        react.createElement("div", {className: "tabsBar"}, Tab(), "NODES TABS GO HERE")
+    )
 }
 
 module.exports.openedFile = openedFile

@@ -1,5 +1,6 @@
 // Manages the connection with the node app and waits for an establishment request to display an established connection 
 let { SetObjects } = require("../nodes/database.js")
+let connected = false
 
 let lastConnected = 0
 let connectionInterval
@@ -40,13 +41,20 @@ let ConnectionBar = () => {
     let disconnected = ms > 500
     
     if (disconnected) {
-        SetObjects([])
+        if (connected) {
+            SetObjects([])
+        }
+
+        connected = false
+    } else {
+        connected = true
     }
+
 
     return (
         react.createElement("button", {
             className: "connectionBarLabel",
-        }, disconnected ? "" : "CONNECTED (" + Math.round(ms) + " ms)")
+        }, disconnected ? "LISTENING : 1337" : "CONNECTED (" + Math.round(ms) + " ms)")
     )
 }
 

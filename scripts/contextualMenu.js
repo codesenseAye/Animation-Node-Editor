@@ -2,11 +2,36 @@
 // Handles keycombinations (paste, cut, copy, etc) and triggers other module functions 
 
 let contextSubscriptions = []
-let {isClickOverNode} = require("./nodes/node/interface.js")
+let {IsClickOverNode, CreateNode} = require("./nodes/node/node.js")
 
-let ContextItem = (text) => {
+let copyNode = () => {
+
+}
+
+let cutNode = () => {
+    
+}
+
+let pasteNode = () => {
+    
+}
+
+let deleteNode = () => {
+    
+}
+
+let createNode = (nodeType) => {
+    return () => {
+        CreateNode(nodeType, {x: mouseX, y: mouseY})
+    }
+}
+
+let ContextItem = (action, text) => {
     return (
-        react.createElement("div", {className: "contextItem", key: Math.random()}, ... text)
+        react.createElement("button", {className: "contextItem", key: Math.random(), onMouseDown: (e) => {
+            e.stopPropagation()
+            action()
+        }}, ... text)
     )
 }
 
@@ -22,14 +47,14 @@ let ContextMenu = () => {
     let [nodeOver, setNode] = react.useState(false)
 
     contextSubscriptions.push(rightDown.subscribe(() => {
-        let nodeOver = isClickOverNode(mouseX, mouseY)
+        let nodeOver = IsClickOverNode(mouseX, mouseY)
 
         if (nodeOver) {
             setOpen(true)
             setNode(nodeOver)
 
             return
-        }
+        } else setNode()
 
         if (isOpen && Math.abs(clickX - mouseX) == 0) {
             return
@@ -46,19 +71,47 @@ let ContextMenu = () => {
         setOpen(false)
     }))
 
+    let contextActions = nodeOver ? [
+        ContextItem(copyNode, [
+            react.createElement("div", {className: "contextTitle"}, "COPY"),
+            react.createElement("div", {className: "contextShortcut"}, "Ctrl+C")
+        ]),
+
+        ContextItem(cutNode, [
+            react.createElement("div", {className: "contextTitle"}, "CUT"),
+            react.createElement("div", {className: "contextShortcut"}, "Ctrl+X")
+        ]),
+
+        ContextItem(pasteNode, [
+            react.createElement("div", {className: "contextTitle"}, "PASTE"),
+            react.createElement("div", {className: "contextShortcut"}, "Ctrl+V")
+        ]),
+    
+        ContextItem(deleteNode, [
+            react.createElement("div", {className: "contextTitle"}, "DELETE"),
+            react.createElement("div", {className: "contextShortcut"}, "Ctrl+D")
+        ])
+    ] : [
+        ContextItem(createNode("OBJECT EVENT"), [react.createElement("div", {className: "contextTitle"}, "OBJECT EVENT")]),
+        ContextItem(createNode("GLOBAL EVENT"), [react.createElement("div", {className: "contextTitle"}, "GLOBAL EVENT")]),
+
+        react.createElement("div", {key: Math.random(), className: "contextMenuSeparator"}),
+
+        ContextItem(createNode("CHANGE"), [react.createElement("div", {className: "contextTitle"}, "CHANGE")]),
+        ContextItem(createNode("VARIABLE"), [react.createElement("div", {className: "contextTitle"}, "VARIABLE")]),
+        
+        react.createElement("div", {key: Math.random(), className: "contextMenuSeparator"}),
+
+        ContextItem(createNode("MODIFY"), [react.createElement("div", {className: "contextTitle"}, "MODIFY")]),
+        ContextItem(createNode("SET"), [react.createElement("div", {className: "contextTitle"}, "SET")]),
+    ]
+
     return (
         react.createElement("div", {className: "contextMenu", inview: isOpen ? "1" : "0", style: {
             visibility: isOpen ? "visible" : "hidden",
             top: mouseY,
             left: mouseX
-        }}, [
-            ContextItem(["COPY", react.createElement("div", {className: "contextShortcut"}, "Ctrl+C")]),
-            ContextItem(["CUT", react.createElement("div", {className: "contextShortcut"}, "Ctrl+X")]),
-            ContextItem(["PASTE", react.createElement("div", {className: "contextShortcut"}, "Ctrl+V")]),
-            ContextItem(["DELETE", react.createElement("div", {className: "contextShortcut"}, "Ctrl+D")]),
-
-            //react.createElement("div", {key: Math.random(), className: "contextMenuSeparator"}),
-        ])
+        }}, contextActions)
     )
 }
 

@@ -4,7 +4,13 @@ div {
   color: $primarycolor;
   font: $font;
   overflow: hidden;
-  
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+button {
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .topBar {
@@ -32,6 +38,7 @@ div {
   height: calc(100% - 25px);
   width: 100%;
 
+  z-index: -100;
   background-image: (contentGrad(90deg), contentGrad(0deg));
 
   background-position-x: 0px;
@@ -45,15 +52,17 @@ div {
   position: absolute;
   border-style: none;
 
+  text-overflow: ellipsis;
+  
   background-color: transparent;
   color: white;
 
   height: 20px;
-  width: 200px;
+  width: 100%;
   -webkit-app-region: no-drag;
 
   top: 2.5px;
-  left: calc(50% - 100px)
+  left: 0px
 }
 
 .connectionBarLabel:hover {

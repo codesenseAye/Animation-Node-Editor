@@ -28,10 +28,11 @@ var mouseY = 0
 const { openedFile , openFiles} = require("./scripts/nodes/nodeTabs.js")
 const { ContextMenu } = require("./scripts/contextualMenu.js")
 
-const { Nodes } = require("./scripts/nodes/node/interface.js")
+const { Nodes } = require("./scripts/nodes/node/node.js")
 const { ConnectionBar } = require("./scripts/network/manageConnection.js")
 
 const { TabsBar } = require("./scripts/nodes/nodeTabs.js")
+const { EstablishedConnections, EstablishingConnection } = require("./scripts/nodes/lines.js")
 
 window.addEventListener("keydown", (event) => {
     keysDown[event.key] = true
@@ -76,9 +77,13 @@ class Body extends react.Component {
         return [
             <Topbar>
             </Topbar>,
+
             <ConnectionBar/>,
             <TabsBar/>,
             
+            <EstablishedConnections/>,
+            <EstablishingConnection/>,
+
             <Contents/>,
             <ContextMenu/>
         ]

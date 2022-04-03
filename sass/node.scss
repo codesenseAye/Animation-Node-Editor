@@ -27,6 +27,7 @@ $fieldPadding: 10px;
 div .nodeBack {
     @include node;
     border-color: black;
+    overflow: visible;
 }
     
 div [isselected="1"] {
@@ -54,6 +55,9 @@ div [isselected="1"] {
 
 @mixin modifyPathProperty {
     padding: 4px;
+
+    margin-left: -2px;
+    margin-top: 2px;
 
     width: 25px;
     height: 25px;
@@ -120,25 +124,109 @@ div [isselected="1"] {
 
     display: grid;
 
-    justify-content: center;
-    align-items: center;
+    justify-content: left;
+    align-items: left;
     
-    align-content: center;
-    justify-items: center;
+    align-content: left;
+    justify-items: left;
+
+    overflow: visible
 }
 
-.connectionInProperty {
+@mixin connection {
     position: absolute;
+
     border-style:ridge;
+    background-color: white;
 
     border-color: black;
     border-radius: 7.5px;
+}
 
+@mixin connectionHover {
+    transform: scale(0.9);
+
+    background-color: white * 0.9;
+    transition-duration: 100ms;
+}
+
+@mixin connectionActive {
+    transform: scale(0.8);
+    background-color: white * 0.7;
+    transition-duration: 100ms;
+}
+
+.connectionInProperty {
+    @include connection;
+    
     margin-top: 2.25px;
     margin-left: -21px;
 
     height: 15px;
     width: 15px;
+}
+
+.connectionInProperty:hover {
+    @include connectionHover
+}
+
+.connectionInProperty:active {
+    @include connectionActive
+}
+
+.connectionOut {
+    @include connection;
+    
+    top: calc(50% - 10.5px);
+    right: -15.5px;
+
+    height: 15px;
+    width: 15px;
+}
+
+.connectionOut:hover {
+    @include connectionHover
+}
+
+.connectionOut:active {
+    @include connectionActive
+}
+
+.connectionIn {
+    @include connection;
+    
+    top: calc(50% - 10.5px);
+    left: -17.5px;
+
+    height: 15px;
+    width: 15px;
+}
+
+.connectionIn:hover {
+    @include connectionHover
+}
+
+.connectionIn:active {
+    @include connectionActive
+}
+
+.signalIn {
+    @include connection;
+    border-width: 2px;
+    
+    top: calc(50% - 10.5px);
+    left: -35.5px;
+
+    height: 15px;
+    width: 15px;
+}
+
+.signalIn:hover {
+    @include connectionHover
+}
+
+.signalIn:active {
+    @include connectionActive
 }
 
 .propertySelect {
@@ -164,7 +252,9 @@ div [isselected="1"] {
     outline:none;
 
     width: calc(100% - 7.5px);
-    height: 20px
+    height: 20px;
+
+    overflow: visible
 }
 
 .inputField {
@@ -179,10 +269,15 @@ div [isselected="1"] {
 
 .field {
     @include inputField;
+    margin-left: 2px;
+    
     width: 100%;
     height: 100%
 }
 
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
 
 .progressTimeInput {
     border-width: 2px;
@@ -243,4 +338,33 @@ div [isselected="1"] {
 
     left: -100%;
     background-image: linear-gradient(90deg, blue 50%, red 50%, red 100%);
+}
+
+.selectionObject {
+    position: absolute;
+    color: black;
+
+    margin-left: 0px;
+    grid-column: 1;
+
+    padding-left: 3px;
+    text-align: left;
+
+    border-radius: 5px;
+    z-index: 100;
+
+    height: 20px;
+    width: min-content;
+    background-color: white;
+    border: black 1px solid;
+}
+
+.selectionObject:hover {
+    transition-duration: 50ms;
+    background-color: white * 0.9;
+}
+
+.selectionObject:active {
+    transition-duration: 50ms;
+    background-color: white * 0.8;
 }

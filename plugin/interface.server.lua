@@ -48,7 +48,7 @@ local function requestServer(body: {any}): (any)
             ["Content-Type"] = "application/json"
         },
 
-        Body = HttpService:JSONEncode(body or {hello = "world"})
+        Body = HttpService:JSONEncode(body or {})
     })
 end
 
@@ -91,6 +91,7 @@ local function buildBodyFromScreenGui(screenGui: ScreenGui): {{className: string
     
     for _, child: GuiObject in pairs(screenGui:GetDescendants()) do
         local path: string = child:GetFullName()
+        path = path:sub(path:find(screenGui.Name) + screenGui.Name:len() + 1)
 
         table.insert(body, {
             className = child.ClassName,

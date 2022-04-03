@@ -1,164 +1,85 @@
-// Creates node of a specified type, create location, and adds it to the database
-// Watches created node properties and inputs to update the database
-// Manages basic node view functionality such as node dragging, node selecting, groups, commenting
-// Handles the node in/out connection stream (accepting connection, denying connection for wrong data type etc) and storing it in the node database when sucessful 
+// Leads to the proper interface for the type of node
+// Handles values and search databases (for gui path / property name / property value / etc)
 
-let { Field , AddPropertyButton } = require("./field.js")
-var nodesSelected = []
+const { StartConnectionLine } = require("../lines.js")
 
-var nodesUpdated = new RXJS.Subject()
-let onNodesUpdateSubscription
+const { ChangeField, ObjectPathPropertyInput, AddPropertyButton } = require("./types/change.js")
+const { EventField } = require("./types/event.js")
 
-var isClickOverNode = (x, y) => {
-    let nodeElements = document.getElementsByClassName("nodeBack")
+const { VariableField } = require("./types/variable.js")
+const { ComputeField } = require("./types/compute.js")
 
-    for (let index = 0; index < nodeElements.length; index++) {
-        let nodeBack = nodeElements[index]
-        let rect = nodeBack.getBoundingClientRect()
-
-        if (x < rect.left) continue
-        if (y < rect.top) continue
-
-        if (x > rect.left + rect.width) continue
-        if (y > rect.top + rect.height) continue
-
-        let fileIndex = nodeBack.getAttribute("fileindex")
-        let nodeObj = openedFile[fileIndex]
-
-        return lodash.cloneDeep(nodeObj)
+let FieldWrap = (nodeType) => {
+    if (nodeType == "CHANGE") {
+        return ChangeField
+    } else if (nodeType == "VARIABLE") {
+        return VariableField
+    } else if (nodeType == "OBJECT EVENT" || nodeType == "GLOBAL EVENT") {
+        return EventField
+    } else if (nodeType == "MODIFY" || nodeType == "SET") {
+        return ComputeField
+    } else {
+        console.log("Couldn't find node type. Type: " + nodeType)
+        return "div"
     }
 }
 
-let CreateNode = (type, position) => {
-    position = position || {x: 0, y: 0}
+class createInterface extends react.Component {
+    constructor(props) {
+        super(props)
+        this.disconnect = this.disconnect.bind(this)
+    }
 
-    openedFile.push({
-        id: Math.random(),
+    disconnect() {
+        if (this.onValueUpdated) {
+            this.onValueUpdated.unsubscribe()
+        }
+    }
 
-        lastNodeClickResponse: 0, // to limit the click detect rate (otherwise it become recursive)
-        type: type,
+    componentWillUnmount() {
+        this.disconnect()
+    }
 
-        properties: {}, // properyName: {valueRef: "nodePathToValue"}
-        connections: [],
+    render() {
+        let VALUES = []
 
-        position: position
-    })
+        for (let i = 0; i < this.props.values.length; i++) {
+            let value = this.props.values[i]
 
-    nodesUpdated.next()
-}
+            VALUES.push(react.createElement(FieldWrap(this.props.node.nodeType), {
+                key: i,
+                node: this.props.node, fieldName: "BOTTOM", // bottom of node identifier (for properties / values etc)
 
-let processDrag = (i, node) => {
-    let up
-    let nodeElement = document.getElementById(node.id)
+                values: this.props.values, setValues: this.props.setValues,
+                i: i, value: value,
 
-    let offsetX = node.position.x - mouseX
-    let offsetY = node.position.y - mouseY
-
-    let moved = mouseMoved.subscribe(() => {
-        node.position.x = mouseX  + offsetX
-        node.position.y = mouseY + offsetY
-
-        nodeElement.setAttribute("style", `left: ${node.position.x}px;top:${node.position.y}px`)
-    })
-
-    up = leftUp.subscribe(() => {
-        up.unsubscribe()
-        moved.unsubscribe()
-    })
-}
-
-
-let Node = (i, node) => {
-    let [isSelected, setSelected] = react.useState(false)
-
-    let click = leftDown.subscribe(() => {
-
-        let now = performance.now()
-        let diff = now - node.lastNodeClickResponse
-
-        if (diff < 50) { // less than 50 milliseconds ago we responded to a click
-            return
+                nodeIndex: this.props.i
+            }))
         }
 
-        let nodeOver = isClickOverNode(mouseX, mouseY)
-
-        if (!nodeOver) {
-            isSelected = false
-            setSelected(isSelected)
-            return
-        }
+        this.disconnect()
         
-        node.lastNodeClickResponse = now
-
-        let ctrlDown = keysDown.Control
-        let same = nodeOver.id == node.id
-
-        if (same) {
-            processDrag(i, node)
-        }
-
-        if (ctrlDown && same) {
-            isSelected = !isSelected
-            setSelected(isSelected)
-        } else if (ctrlDown && !same) {
-            setSelected(isSelected)
-        } else if (same) {
-            isSelected = true
-            setSelected(isSelected)
-        } else if (!ctrlDown) {
-            isSelected = false
-            setSelected(isSelected)
-        }
-    })
-
-    react.useEffect(() => {
-        return () => click.unsubscribe()
-    })
-
-    return (
-        react.createElement("div", {key: node.id, id: node.id, fileindex: i, isselected: isSelected ? 1 : 0, className: "nodeBack", style: {
-            left: node.position.x,
-            top: node.position.y
-        }}, 
-            Field("PATH"),
-            Field("VALUE"),
-            Field("VALUE"),
-            Field("VALUE"),
-            Field("VALUE"),
-            Field("VALUE"),
-            Field("VALUE"),
-            AddPropertyButton()
-        )
-    )
-}
-
-let Nodes = () => {
-    let [nodes, setNodes] = react.useState(openedFile)
-    
-    if (onNodesUpdateSubscription) {
-        onNodesUpdateSubscription.unsubscribe()
-        onNodesUpdateSubscription = null
-    }
-
-    if (!nodes) {
-        return null
-    }
-
-    onNodesUpdateSubscription = nodesUpdated.subscribe(() => {
-        // node sure if this will work because it'll be the same array object
-        setNodes(openedFile)
-    })
-
-    return (
-        nodes.map((node, i) => {
-            return Node(i, node)
+        this.onValueUpdated = this.props.node.valueUpdated.subscribe(() => {
+            this.forceUpdate()
         })
-    )
+
+        console.log(this.props.i)
+        return [
+            react.createElement(FieldWrap(this.props.node.nodeType), {
+                key: "TOP", node: this.props.node, fieldName: "TOP", // top of the node identifier (for path / dropdown for type etc)
+                nodeIndex: this.props.i
+            }),
+            
+            VALUES,
+
+            (this.props.node.nodeType == "CHANGE" ? 
+                react.createElement("div", {key: Math.random(), className: "signalIn", onMouseDown: StartConnectionLine(-2, this.props.i)})
+            : null),
+            
+            (this.props.node.nodeType == "CHANGE" ? AddPropertyButton(this.props.values, this.props.setValues) : null)
+             // to add more properties for the change event
+        ]
+    }
 }
 
-
-CreateNode("Variable", {x: 25, y: 50})
-CreateNode("Variable", {x: 400, y: 50})
-
-module.exports.Nodes = Nodes
-module.exports.isClickOverNode = isClickOverNode
+module.exports.CreateInterface = createInterface

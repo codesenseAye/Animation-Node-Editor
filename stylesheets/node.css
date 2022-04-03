@@ -1,4 +1,3 @@
-/* line 27, ../sass/node.scss */
 div .nodeBack {
   position: absolute;
   min-width: 100px;
@@ -14,9 +13,8 @@ div .nodeBack {
   padding: 10px;
   background-color: #646464;
   border-color: black;
-}
+  overflow: visible; }
 
-/* line 32, ../sass/node.scss */
 div [isselected="1"] {
   position: absolute;
   min-width: 100px;
@@ -31,28 +29,24 @@ div [isselected="1"] {
   border-width: 1px;
   padding: 10px;
   background-color: #646464;
-  border-color: #93bbc9;
-}
+  border-color: #93bbc9; }
 
-/* line 42, ../sass/node.scss */
 .inputTitle {
   color: white;
-  font-size: small;
-}
+  font-size: small; }
 
-/* line 46, ../sass/node.scss */
 .inputTitle[inline="true"] {
   color: white;
   font-size: small;
   position: relative;
   width: max-content;
   left: 20px;
-  top: -12.5px;
-}
+  top: -12.5px; }
 
-/* line 84, ../sass/node.scss */
 .addPathProperty {
   padding: 4px;
+  margin-left: -2px;
+  margin-top: 2px;
   width: 25px;
   height: 25px;
   border-style: solid;
@@ -60,26 +54,22 @@ div [isselected="1"] {
   border-radius: 5px;
   border-width: 1px;
   color: black;
-  transition-duration: 150ms;
-}
+  transition-duration: 150ms; }
 
-/* line 88, ../sass/node.scss */
 .addPathProperty:hover {
   background-color: darkgrey;
   transition-duration: 150ms;
-  transform: scale(0.9);
-}
+  transform: scale(0.9); }
 
-/* line 93, ../sass/node.scss */
 .removePathProperty:active {
   background-color: grey;
   transition-duration: 150ms;
-  transform: scale(0.8);
-}
+  transform: scale(0.8); }
 
-/* line 97, ../sass/node.scss */
 .removePathProperty {
   padding: 4px;
+  margin-left: -2px;
+  margin-top: 2px;
   width: 25px;
   height: 25px;
   border-style: solid;
@@ -92,62 +82,124 @@ div [isselected="1"] {
   width: 20px;
   height: 20px;
   position: relative;
-  right: 0px;
-}
+  right: 0px; }
 
-/* line 108, ../sass/node.scss */
 .removePathProperty:hover {
   background-color: darkgrey;
   transition-duration: 150ms;
-  transform: scale(0.9);
-}
+  transform: scale(0.9); }
 
-/* line 112, ../sass/node.scss */
 .removePathProperty:active {
   background-color: grey;
   transition-duration: 150ms;
-  transform: scale(0.8);
-}
+  transform: scale(0.8); }
 
-/* line 116, ../sass/node.scss */
 .pathProperty {
   background-color: transparent;
   width: max-content;
   overflow: visible;
   display: grid;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-  justify-items: center;
-}
+  justify-content: left;
+  align-items: left;
+  align-content: left;
+  justify-items: left;
+  overflow: visible; }
 
-/* line 130, ../sass/node.scss */
 .connectionInProperty {
   position: absolute;
   border-style: ridge;
+  background-color: white;
   border-color: black;
   border-radius: 7.5px;
   margin-top: 2.25px;
   margin-left: -21px;
   height: 15px;
-  width: 15px;
-}
+  width: 15px; }
 
-/* line 144, ../sass/node.scss */
+.connectionInProperty:hover {
+  transform: scale(0.9);
+  background-color: #e6e6e6;
+  transition-duration: 100ms; }
+
+.connectionInProperty:active {
+  transform: scale(0.8);
+  background-color: #b3b3b3;
+  transition-duration: 100ms; }
+
+.connectionOut {
+  position: absolute;
+  border-style: ridge;
+  background-color: white;
+  border-color: black;
+  border-radius: 7.5px;
+  top: calc(50% - 10.5px);
+  right: -15.5px;
+  height: 15px;
+  width: 15px; }
+
+.connectionOut:hover {
+  transform: scale(0.9);
+  background-color: #e6e6e6;
+  transition-duration: 100ms; }
+
+.connectionOut:active {
+  transform: scale(0.8);
+  background-color: #b3b3b3;
+  transition-duration: 100ms; }
+
+.connectionIn {
+  position: absolute;
+  border-style: ridge;
+  background-color: white;
+  border-color: black;
+  border-radius: 7.5px;
+  top: calc(50% - 10.5px);
+  left: -17.5px;
+  height: 15px;
+  width: 15px; }
+
+.connectionIn:hover {
+  transform: scale(0.9);
+  background-color: #e6e6e6;
+  transition-duration: 100ms; }
+
+.connectionIn:active {
+  transform: scale(0.8);
+  background-color: #b3b3b3;
+  transition-duration: 100ms; }
+
+.signalIn {
+  position: absolute;
+  border-style: ridge;
+  background-color: white;
+  border-color: black;
+  border-radius: 7.5px;
+  border-width: 2px;
+  top: calc(50% - 10.5px);
+  left: -35.5px;
+  height: 15px;
+  width: 15px; }
+
+.signalIn:hover {
+  transform: scale(0.9);
+  background-color: #e6e6e6;
+  transition-duration: 100ms; }
+
+.signalIn:active {
+  transform: scale(0.8);
+  background-color: #b3b3b3;
+  transition-duration: 100ms; }
+
 .propertySelect {
   width: max-content;
   border-radius: 3px;
   height: 18.5px;
   margin-right: 6px;
-  outline: none;
-}
+  outline: none; }
 
-/* line 152, ../sass/node.scss */
 .propertySelectOption {
-  color: black;
-}
+  color: black; }
 
-/* line 170, ../sass/node.scss */
 .inputField {
   border-radius: 5px;
   border-style: solid;
@@ -157,9 +209,8 @@ div [isselected="1"] {
   outline: none;
   width: calc(100% - 7.5px);
   height: 20px;
-}
+  overflow: visible; }
 
-/* line 175, ../sass/node.scss */
 .inputField[inline="true"] {
   border-radius: 5px;
   border-style: solid;
@@ -169,9 +220,8 @@ div [isselected="1"] {
   outline: none;
   width: calc(100% - 7.5px);
   height: 20px;
-}
+  overflow: visible; }
 
-/* line 180, ../sass/node.scss */
 .field {
   border-radius: 5px;
   border-style: solid;
@@ -181,11 +231,14 @@ div [isselected="1"] {
   outline: none;
   width: calc(100% - 7.5px);
   height: 20px;
+  overflow: visible;
+  margin-left: 2px;
   width: 100%;
-  height: 100%;
-}
+  height: 100%; }
 
-/* line 187, ../sass/node.scss */
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none; }
+
 .progressTimeInput {
   border-width: 2px;
   border-style: solid;
@@ -195,32 +248,23 @@ div [isselected="1"] {
   position: relative;
   margin-left: 5px;
   width: 20px;
-  height: 20px;
-}
+  height: 20px; }
 
-/* line 203, ../sass/node.scss */
 .progressTimeInput:first-of-type {
-  margin-left: 2px !important;
-}
+  margin-left: 2px !important; }
 
 @keyframes progressBarLoopTest {
   0% {
-    left: -100%;
-  }
+    left: -100%; }
   100% {
-    left: 0%;
-  }
-}
-/* line 226, ../sass/node.scss */
+    left: 0%; } }
 .valuePropertyProgressBarHolder {
   position: relative;
   top: 2px;
   grid-row: 3;
   height: 2px;
-  width: 100%;
-}
+  width: 100%; }
 
-/* line 230, ../sass/node.scss */
 .valuePropertyProgressBar {
   position: relative;
   top: 2px;
@@ -235,5 +279,28 @@ div [isselected="1"] {
   animation-play-state: running;
   animation-duration: 1s;
   left: -100%;
-  background-image: linear-gradient(90deg, blue 50%, red 50%, red 100%);
-}
+  background-image: linear-gradient(90deg, blue 50%, red 50%, red 100%); }
+
+.selectionObject {
+  position: absolute;
+  color: black;
+  margin-left: 0px;
+  grid-column: 1;
+  padding-left: 3px;
+  text-align: left;
+  border-radius: 5px;
+  z-index: 100;
+  height: 20px;
+  width: min-content;
+  background-color: white;
+  border: black 1px solid; }
+
+.selectionObject:hover {
+  transition-duration: 50ms;
+  background-color: #e6e6e6; }
+
+.selectionObject:active {
+  transition-duration: 50ms;
+  background-color: #cccccc; }
+
+/*# sourceMappingURL=node.css.map */

@@ -1,8 +1,19 @@
+/* line 3, ../sass/hud.scss */
 div {
   color: #7d7d7d;
   font: Fredoka One;
-  overflow: hidden; }
+  overflow: hidden;
+  -webkit-user-select: none;
+  user-select: none;
+}
 
+/* line 11, ../sass/hud.scss */
+button {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* line 16, ../sass/hud.scss */
 .topBar {
   background-color: #646464;
   position: absolute;
@@ -10,41 +21,53 @@ div {
   left: 0px;
   top: 0px;
   height: 25px;
-  width: 100%; }
+  width: 100%;
+}
 
+/* line 33, ../sass/hud.scss */
 .contentGrid {
   position: absolute;
   top: 25px;
   left: 0px;
   height: calc(100% - 25px);
   width: 100%;
+  z-index: -100;
   background-image: repeating-linear-gradient(90deg, #646464 0px, transparent 1px, transparent 100%), repeating-linear-gradient(0deg, #646464 0px, transparent 1px, transparent 100%);
   background-position-x: 0px;
   background-position-y: 0px;
   background-size: 25px 25px;
-  background-color: transparent; }
+  background-color: transparent;
+}
 
+/* line 51, ../sass/hud.scss */
 .connectionBarLabel {
   position: absolute;
   border-style: none;
+  text-overflow: ellipsis;
   background-color: transparent;
   color: white;
   height: 20px;
-  width: 200px;
+  width: 100%;
   -webkit-app-region: no-drag;
   top: 2.5px;
-  left: calc(50% - 100px); }
+  left: 0px;
+}
 
+/* line 68, ../sass/hud.scss */
 .connectionBarLabel:hover {
   color: #cccccc;
   transform: scale(0.9);
-  transition-duration: 50ms; }
+  transition-duration: 50ms;
+}
 
+/* line 75, ../sass/hud.scss */
 .connectionBarLabel:active {
   color: #999999;
   transform: scale(0.8);
-  transition-duration: 50ms; }
+  transition-duration: 50ms;
+}
 
+/* line 82, ../sass/hud.scss */
 .tabsBar {
   position: absolute;
   z-index: 100;
@@ -52,6 +75,5 @@ div {
   height: 20px;
   top: 25px;
   left: 0px;
-  background-color: #4b4b4b; }
-
-/*# sourceMappingURL=hud.css.map */
+  background-color: #4b4b4b;
+}

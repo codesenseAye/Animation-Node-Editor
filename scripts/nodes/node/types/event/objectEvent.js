@@ -1,2 +1,0 @@
-// Handles the object event node type which accepts an ui object path and specific event to listen to (which is contextual to the ui object)
-// Accepts variable node objects as an object and as an event path

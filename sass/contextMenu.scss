@@ -48,14 +48,50 @@
 .contextItem {
     color: rgb(200,200,200);
     z-index: 101;
+
+    display: grid;
+
+    border-style: none;
+    text-align: left;
+
     background-color: $secondarycolor
 }
 
 .contextShortcut {
     position: relative;
+    grid-row: 1;
+    
+    width: 100%;
+    text-align: right;
 
-    margin-left: 75px;
-    margin-top: -21px
+    margin-right: 5px;
+    margin-left: 10px;
+
+    margin-top: 0px
+}
+
+.contextTitle {
+    position: relative;
+    color: inherit;
+    
+    grid-row: 1;
+    width: 100%;
+
+    margin-left: 0px;
+}
+
+.contextTitle:hover {
+    color: rgb(200,200,200) * 0.9;
+    transform: scale(0.9);
+
+    transition-duration: 100ms;
+}
+
+.contextTitle:active {
+    color: rgb(200,200,200) * 0.8;
+    transform: scale(0.8);
+    
+    transition-duration: 100ms;
 }
 
 .contextMenuSeparator {

@@ -1,1 +1,0 @@
-// Handles the state node object which its value can be modified by computation nodes
