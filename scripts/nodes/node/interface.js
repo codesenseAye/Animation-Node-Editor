@@ -63,7 +63,6 @@ class createInterface extends react.Component {
             this.forceUpdate()
         })
 
-        console.log(this.props.i)
         return [
             react.createElement(FieldWrap(this.props.node.nodeType), {
                 key: "TOP", node: this.props.node, fieldName: "TOP", // top of the node identifier (for path / dropdown for type etc)

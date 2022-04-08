@@ -9,7 +9,7 @@ const startLine = new RXJS.Subject()
 const endLine = new RXJS.Subject()
 
 let startConnectionLine = (direction, nodeIndex) => {
-    console.log(direction, nodeIndex)
+    //console.log(direction, nodeIndex)
     
     // insert into array as available connections
     // poll connections when dragging line to see if any match the specifications
@@ -20,7 +20,7 @@ let startConnectionLine = (direction, nodeIndex) => {
     
     return (e) => {
         e.stopPropagation()
-        startLine.next(node)
+        startLine.next(nodeIndex)
         
         let mouseUp
         

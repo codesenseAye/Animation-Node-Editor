@@ -9,6 +9,99 @@ var nodesSelected = []
 var nodesUpdated = new RXJS.Subject()
 let onNodesUpdateSubscription
 
+
+// start over?
+// iterate until it works
+
+// i have a better idea of the tools i need to use and how to use them
+// i have more ideas on how to structure everything
+// instead of having the nodes be individualized
+// i should have instead made a node boilerplate and a node surface handler
+// i should have made everything more modular and not overcomplicated everything
+// and looked farther ahead (which i can do better now)
+
+// createNode(nodeType: determines inputs/paths/selects) returns node id to be matched with connections
+
+
+// node.CreateInput(inputType : color / number / udim2) returns connection id
+// will handle saving across react updates etc
+// will constrain the user input to be valid to the input type
+
+// node.CreatePath() returns a input id
+// object path handlers
+// updates the node values automatically to save across react updates
+
+// node.CreateSelect(inputid : number / universally unique identifier, selectType : event / property / math operation / etc) returns a input id
+// accepts an input id and will automatically update the options depending on the path when it changes and its current state
+// automatically updates the node values to save across react updates
+
+// node.CreateConnectionPort(
+//    inputId? : optional create a connection port that can link with other ports, (if omitted it is a signal dispatch + i/o depending on direction)
+//    direction: number for whether it is an "in" connection or "out" connection (whether or not to send or wait to receive data)
+//)
+// handles rendering established connections
+// handles creating connections and verifying if the current port data matches (otherwise no connection)
+// handles detecting when inputs have changed and whether or not to break the connection (because the data doesnt match anymore)
+// handles breaking connections manually by the user
+// handles storing active connections between ports
+
+// These functions will create dictionaries in the array node.elements
+// the node will be rendered based on what is in the node.element dictionaries
+// the element dictionary created by the boilerplate function will hold the data of the rendered element piece
+// the other functions will reference this dictionary for data that is needed for the operability of the function in question 
+// ^ based on input id & piece/function id
+
+// build on these boilerplate functions that will work together and be more general and modular 
+// have these functions save to the node automatically behind the scenes seamlessly
+
+class Node {
+    constructor(position) {
+        this.id = Math.random()
+        this.position = position
+
+        this.setValue = setValue
+        this.valueUpdated = new RXJS.Subject()
+
+        this.lastNodeClickResponse = 0 // to limit the click detect rate (otherwise it become recursive)
+        this.nodeType = type
+
+        this.properties = {} // properyName: {valueRef: "nodePathToValue"}
+        this.connections = []
+
+        this.interfaces = {
+            inputs: [],
+            paths: [],
+            selects: [],
+            connectionPorts: []
+        }
+    }
+
+    CreateInput() {
+
+    }
+
+    CreatePath() {
+
+    }
+
+    CreateSelect() {
+
+    }   
+    
+    CreateConnectionPort() {
+
+    }
+    
+    _setValue(valueName, value) {
+        let beforeValue = this.properties[valueName]
+        this.properties[valueName] = value
+
+        if (!lodash.isEqual(beforeValue, value)) {
+            this.valueUpdated.next()
+        }
+    }
+}
+
 var isClickOverNode = (x, y) => {
     let nodeElements = document.getElementsByClassName("nodeBack")
 
@@ -33,31 +126,7 @@ let CreateNode = (type, position) => {
     let node
     position = position || {x: 0, y: 0}
 
-    let setValue = (valueName, value) => {
-        let beforeValue = node.properties[valueName]
-        node.properties[valueName] = value
-
-        if (!lodash.isEqual(beforeValue, value)) {
-            node.valueUpdated.next()
-        }
-
-        console.log(node)
-    }
-
-    node = {
-        id: Math.random(),
-
-        setValue: setValue,
-        valueUpdated: new RXJS.Subject(),
-
-        lastNodeClickResponse: 0, // to limit the click detect rate (otherwise it become recursive)
-        nodeType: type,
-
-        properties: {}, // properyName: {valueRef: "nodePathToValue"}
-        connections: [],
-
-        position: position
-    }
+    node = new Node(position)
 
     openedFile.push(node)
     nodesUpdated.next()
@@ -84,7 +153,7 @@ let processDrag = (i, node) => {
 }
 
 
-class Node extends react.Component {
+class NodeObject extends react.Component {
     constructor(props) {
         super(props)
 
